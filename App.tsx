@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -5,24 +6,23 @@
  * @format
  */
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import { StatusBar, useColorScheme } from 'react-native';
+import './global.css';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { AlertNotificationRoot } from 'react-native-alert-notification';
+import { AppNavigator } from './src/navigation';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AlertNotificationRoot>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <AppNavigator />
+      </AlertNotificationRoot>
+    </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
