@@ -5,8 +5,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AlertNotificationRoot } from 'react-native-alert-notification';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './src/redux';
-import { AppNavigator } from './src/navigation';
+import { store, persistor } from '@/redux';
+import { AppNavigator } from '@/navigation';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
