@@ -3,8 +3,10 @@ import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'react-native';
 import { BottomText } from '@/components/BottomText';
+import { useNavigation } from '@react-navigation/native';
 
 export const OnBoardingScreen = () => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView className="flex-1 bg-white justify-between relative px-4">
       <View className="mt-20">
@@ -24,7 +26,9 @@ export const OnBoardingScreen = () => {
           }
           textClassName="text-2xl"
           variant="outline"
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate('Ride' as never);
+          }}
         />
         <Button
           title="Order Food"

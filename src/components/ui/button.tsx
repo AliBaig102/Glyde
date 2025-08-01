@@ -23,15 +23,15 @@ export const Button = ({
   const getVariantClasses = () => {
     switch (variant) {
       case 'outline':
-        return 'border border-gray-200 bg-transparent';
+        return 'border border-light-grey bg-transparent';
       case 'ghost':
-        return 'bg-transparent hover:bg-blue-100';
+        return 'bg-transparent hover:bg-glyde-blue';
       case 'link':
         return 'bg-transparent underline';
       case 'secondary':
-        return 'bg-gray-500';
+        return 'bg-glyde-grey';
       default:
-        return 'bg-blue-500';
+        return 'bg-glyde-blue';
     }
   };
 
@@ -44,10 +44,10 @@ export const Button = ({
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
-      className={`flex flex-row items-center gap-4 p-4 m-2 rounded-lg ${getVariantClasses()} ${className} ${disabled ? 'opacity-50' : ''}`}
+      className={`flex flex-row items-center gap-4 p-4 m-2 rounded-xl ${getVariantClasses()} ${className} ${disabled ? 'opacity-50' : ''}`}
     >
       {icon && icon}
-      <Text className={`${textColor} ${textClassName}`}>{title}</Text>
+      <Text className={`${textColor} text-2xl ${textClassName}`}>{title}</Text>
     </TouchableOpacity>
   );
 };
