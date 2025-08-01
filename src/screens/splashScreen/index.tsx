@@ -12,7 +12,7 @@ export const SplashScreen = () => {
   
   return (
     <SafeAreaView className="flex-1 items-center justify-center bg-white">
-        <Image source={require("@/assets/images/drive-forward.png")} className='w-[300px]' resizeMode='contain' />
+        <Image source={require("@/assets/images/drive-forward.png")} className='w-[250px]' resizeMode='contain' />
         <Image source={require("@/assets/images/splash-screen-logo.png")} className='w-[300px] absolute bottom-12' resizeMode='contain' />
     </SafeAreaView>
   );

@@ -7,6 +7,8 @@ interface ButtonProps {
   onPress: () => void;
   disabled?: boolean;
   className?: string;
+  textClassName?: string;
+  variant?: 'default' | 'outline' | 'ghost' | 'link' | 'secondary';
 }
 
 export const Button = ({
@@ -15,15 +17,37 @@ export const Button = ({
   onPress,
   disabled,
   className,
+  variant = 'default',
+  textClassName,
 }: ButtonProps) => {
+  const getVariantClasses = () => {
+    switch (variant) {
+      case 'outline':
+        return 'border border-gray-200 bg-transparent';
+      case 'ghost':
+        return 'bg-transparent hover:bg-blue-100';
+      case 'link':
+        return 'bg-transparent underline';
+      case 'secondary':
+        return 'bg-gray-500';
+      default:
+        return 'bg-blue-500';
+    }
+  };
+
+  const textColor =
+    variant === 'outline' || variant === 'ghost' || variant === 'link'
+      ? 'text-black'
+      : 'text-white';
+
   return (
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
-      className={`flex flex-row items-center justify-center gap-4 bg-blue-500 p-4 m-2 rounded-md ${className} ${disabled ? 'opacity-50' : ''}`}
+      className={`flex flex-row items-center gap-4 p-4 m-2 rounded-lg ${getVariantClasses()} ${className} ${disabled ? 'opacity-50' : ''}`}
     >
       {icon && icon}
-      <Text className="text-white">{title}</Text>
+      <Text className={`${textColor} ${textClassName}`}>{title}</Text>
     </TouchableOpacity>
   );
 };
