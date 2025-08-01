@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --food-orange: #ff8b06ff;
+  --food-dark-grey: #303030ff;
+  --food-white: #ffffffff;
+  --glyde-blue: #0465aaff;
+  --glyde-white: #ffffffff;
+  --light-grey: #f5f5f5ff;
+  --very-light-grey: #fafafaff;
+  --glyde-dark-blue: #061b38ff;
+  --ratingstar-yellow: #f7db32ff;
+  --glyde-grey: #efefefff;
+  --glyde-red: #ff4f4fff;
+  --success-green: #5cb85cff;
+  --spindrive-light-blue: #5bbbffff;
+  --glyde-light-blue: #b6e1ffff;
+}
