@@ -3,6 +3,7 @@ import { BottomText } from '@/components/BottomText';
 import { GoogleButton } from '@/components/GoogleButton';
 import { Button } from '@/components/ui';
 import { colors } from '@/constants/colors';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { Image } from 'react-native';
@@ -48,6 +49,7 @@ const Slide = ({ item }: { item: Slide }) => (
 );
 
 export const RideOnBoardingScreen = () => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView className="flex-1 bg-white relative px-4">
       <View className="flex-1">
@@ -65,12 +67,12 @@ export const RideOnBoardingScreen = () => {
       <View className="">
         <Button
           title="Continue with phone"
-          onPress={() => {}} 
+          onPress={() => navigation.navigate("PhoneScreen" as never)} 
           className="justify-center"
         />
         <Button
           title="Continue with email"
-          onPress={() => {}}
+          onPress={() => navigation.navigate("SigninScreen" as never)}
           className="justify-center"
         />
         <GoogleButton />
