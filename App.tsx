@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '@/redux';
 import { AppNavigator } from '@/navigation';
+import { ModalPortal } from 'react-native-modals';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -16,6 +17,7 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <AlertNotificationRoot>
+            <ModalPortal/>
             <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
             <AppNavigator />
           </AlertNotificationRoot>
