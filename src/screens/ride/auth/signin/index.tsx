@@ -3,8 +3,10 @@ import { View, Text, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Mail, Lock } from 'lucide-react-native';
 import { Button, Input, GoogleButton, BottomText } from '@/components';
+import { useNavigation } from '@react-navigation/native';
 
 export const SigninScreen = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -13,7 +15,11 @@ export const SigninScreen = () => {
   };
 
   const handleForgotPassword = () => {
-    console.log('Forgot Password pressed');
+    navigation.navigate('ForgotPasswordScreen' as never);
+  };
+
+  const handleSignUp = () => {
+    navigation.navigate('SignupScreen' as never);
   };
 
   return (
@@ -35,7 +41,7 @@ export const SigninScreen = () => {
               <Text className="text-base text-gray-600">
                 Don't have an account?{' '}
               </Text>
-              <Text className="text-base font-medium underline text-glyde-blue">
+              <Text onPress={handleSignUp} className="text-base font-medium underline text-glyde-blue">
                 Sign Up
               </Text>
             </View>
@@ -80,7 +86,7 @@ export const SigninScreen = () => {
           <Button
             title="Sign In"
             onPress={handleSignIn}
-            className="justify-center mb-4"
+            className="justify-center"
           />
 
           {/* Google Button */}
@@ -88,7 +94,7 @@ export const SigninScreen = () => {
         </View>
 
         {/* Bottom Text */}
-        <View className="pb-4 mt-auto">
+        <View className="mt-auto">
           <BottomText />
         </View>
       </ScrollView>
