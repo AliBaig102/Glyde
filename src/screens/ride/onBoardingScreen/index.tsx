@@ -33,16 +33,16 @@ const slides: Slide[] = [
 ];
 
 const Slide = ({ item }: { item: Slide }) => (
-  <View className="items-center px-5 gap-4">
+  <View className="items-center px-5 gap-4 mt-[3vh]">
     <Image
       source={item.image}
       className="w-[300px] h-[300px]"
       resizeMode="contain"
     />
-    <Text style={{ fontSize: 30 }} className="font-bold text-center">
+    <Text  className="font-bold text-center text-3xl">
       {item.title}
     </Text>
-    <Text style={{ fontSize: 18 }} className="text-gray text-center">
+    <Text className="text-gray text-center text-lg">
       {item.text}
     </Text>
   </View>
@@ -55,7 +55,7 @@ export const RideOnBoardingScreen = () => {
       <View className="flex-1">
         <AppIntroSlider
           renderItem={Slide}
-          contentContainerStyle={{ flexGrow: 1, marginTop: 100 }}
+          contentContainerStyle={{ flexGrow: 1}}
           data={slides}
           showSkipButton={false}
           showDoneButton={false}
