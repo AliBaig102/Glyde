@@ -2,13 +2,13 @@
 import { BottomText } from '@/components/BottomText';
 import { GoogleButton } from '@/components/GoogleButton';
 import { Button } from '@/components/ui';
-import { colors } from '@/constants/colors';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { Image } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTheme } from '@/hooks/useTheme';
 
 interface Slide {
   key: string;
@@ -39,10 +39,10 @@ const Slide = ({ item }: { item: Slide }) => (
       className="w-[300px] h-[300px]"
       resizeMode="contain"
     />
-    <Text  className="font-bold text-center text-3xl">
+    <Text  className="text-3xl font-bold text-center text-glyde-white-dark dark:text-glyde-white">
       {item.title}
     </Text>
-    <Text className="text-gray text-center text-lg">
+    <Text className="text-lg text-center text-glyde-grey-dark dark:text-glyde-grey">
       {item.text}
     </Text>
   </View>
@@ -50,8 +50,10 @@ const Slide = ({ item }: { item: Slide }) => (
 
 export const RideOnBoardingScreen = () => {
   const navigation = useNavigation();
+  const { colors } = useTheme();
+  
   return (
-    <SafeAreaView className="flex-1 bg-white relative px-4">
+    <SafeAreaView className="relative flex-1 px-4 bg-glyde-white dark:bg-glyde-white-dark">
       <View className="flex-1">
         <AppIntroSlider
           renderItem={Slide}
@@ -60,7 +62,7 @@ export const RideOnBoardingScreen = () => {
           showSkipButton={false}
           showDoneButton={false}
           showNextButton={false}
-          dotStyle={{ backgroundColor: colors.glydeLightBlue }}
+          dotStyle={{ backgroundColor: colors.glydeDarkGrey }}
           activeDotStyle={{ backgroundColor: colors.glydeDarkBlue }}
         />
       </View>

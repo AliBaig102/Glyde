@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 export const OnBoardingScreen = () => {
   const navigation = useNavigation();
   return (
-    <SafeAreaView className="flex-1 bg-white justify-between relative px-4">
+    <SafeAreaView className="relative flex-1 justify-between px-4 bg-glyde-white dark:bg-glyde-white-dark">
       <View className="mt-20">
         <Image
           source={require('@/assets/images/home-screen-banner.png')}

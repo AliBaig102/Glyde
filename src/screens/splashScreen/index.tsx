@@ -62,7 +62,7 @@ export const SplashScreen = () => {
   }, [driveForwardOpacity, driveForwardTranslateY, driveForwardScale, logoOpacity, logoTranslateY, navigateToOnboarding]);
   
   return (
-    <SafeAreaView className="flex-1 items-center justify-center bg-white">
+    <SafeAreaView className="flex-1 justify-center items-center bg-glyde-white dark:bg-glyde-white-dark">
         <Animated.View style={driveForwardAnimatedStyle}>
           <Image 
             source={require("@/assets/images/drive-forward.png")} 
