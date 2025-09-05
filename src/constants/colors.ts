@@ -12,6 +12,7 @@ export interface ColorScheme {
   glydeSuccessGreen: string;
   glydeLightBlue: string;
   glydePaleBlue: string;
+  glydeBlack: string;
 }
 
 export interface Colors {
@@ -34,6 +35,7 @@ export const colors: Colors = {
     glydeSuccessGreen: '#5CB85CFF',
     glydeLightBlue: '#5BBBFFFF',
     glydePaleBlue: '#B6E1FFFF',
+    glydeBlack: '#000000FF',
   },
   dark: {
     glydeOrange: '#FFB266FF',
@@ -49,5 +51,6 @@ export const colors: Colors = {
     glydeSuccessGreen: '#34D058FF',
     glydeLightBlue: '#3B82F6FF',
     glydePaleBlue: '#60A5FAFF',
+    glydeBlack: '#FFFFFFFF',
   },
 };

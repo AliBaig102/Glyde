@@ -12,66 +12,70 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '@/hooks/useTheme';
 
 export const PhoneScreen = () => {
   const navigation = useNavigation();
+  const { colors } = useTheme();
   const [selectedCountry, setSelectedCountry] = useState(countries[0]); // Default country
   const [phoneNumber, setPhoneNumber] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-white dark:bg-glyde-white-dark">
       <StatusBar barStyle="dark-content" backgroundColor="white" />
 
       {/* Header */}
-      <View className="flex-row items-center justify-between px-6">
+      <View className="flex-row justify-between items-center px-6">
         <TouchableOpacity
-          className="bg-very-light-grey p-3 rounded-full shadow-sm"
+          className="p-3"
           onPress={() => navigation.goBack()}
         >
-          <ArrowLeftIcon size={20} color={'#303030'} />
+          <ArrowLeftIcon size={20} color={colors.glydeBlack} />
         </TouchableOpacity>
       </View>
 
       {/* Main Content */}
       <View className="flex-1 px-6 pt-6">
         <View className="mb-10">
-          <Text className="text-3xl font-bold mb-3 text-glyde-dark-blue">
+          <Text className="mb-3 text-3xl font-bold text-glyde-black dark:text-glyde-white">
             Join us via phone number
           </Text>
-          <Text className="text-base text-gray-500 leading-6">
+          <Text className="text-base leading-6 text-glyde-black dark:text-glyde-white">
             We'll send you a verification code to confirm your phone number
           </Text>
         </View>
 
         {/* Phone Input Container */}
         <View className="mb-8">
-          <View className="flex-row items-center border-2 border-glyde-blue rounded-2xl px-4 h-16 bg-white shadow-sm">
+          <View className="flex-row items-center px-4 h-16 bg-transparent rounded-2xl border-2 shadow-sm dark:bg-glyde-light-grey-dark border-glyde-blue">
             <TouchableOpacity
-              className="flex-row items-center pr-4 border-r border-glyde-grey mr-4"
+              className="flex-row items-center pr-4 mr-4 border-r border-glyde-grey"
               onPress={() => setModalVisible(true)}
             >
-              <Text className="text-2xl mr-2">{selectedCountry.flag}</Text>
-              <Text className="text-base font-semibold mr-3 text-glyde-dark-blue">
+              <Text className="mr-2 text-2xl">{selectedCountry.flag}</Text>
+              <Text className="mr-3 text-base font-semibold text-glyde-dark-blue dark:text-glyde-white">
                 {selectedCountry.dialCode}
               </Text>
-              <Text className="text-xs text-glyde-blue font-medium">▼</Text>
+              <Text className="text-xs font-medium text-glyde-blue dark:text-glyde-white">▼</Text>
             </TouchableOpacity>
             <TextInput
-              className="flex-1 text-base text-glyde-dark-blue font-medium"
+              className="flex-1 text-base font-medium text-glyde-dark-blue dark:text-glyde-white"
               placeholder="Enter your phone number"
               keyboardType="phone-pad"
               value={phoneNumber}
               onChangeText={setPhoneNumber}
               maxLength={15}
-              placeholderTextColor="#A0A0A0"
+              placeholderTextColor={colors.glydeDarkGrey}
             />
           </View>
         </View>
       </View>
 
       {/* Bottom Button */}
-      <Button title="Continue" className="justify-center" onPress={() => {}} />
+      <Button title="Next" className="justify-center mx-4" onPress={() => {
+        navigation.navigate('OtpVerificationScreen' as never);
+      }} />
 
       {/* Country Selection Modal */}
       <CountrySelectorModal

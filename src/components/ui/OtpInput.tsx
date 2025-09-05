@@ -19,7 +19,7 @@ export const OtpInput: React.FC<OtpInputProps> = ({
     <RNOtpInput
       numberOfDigits={length}
       onTextChange={setCode}
-      focusColor={colors.primary}
+      focusColor={colors.glydeBlue}
       focusStickBlinkingDuration={500}
       theme={{
         containerStyle: {
@@ -31,7 +31,7 @@ export const OtpInput: React.FC<OtpInputProps> = ({
           height: 48,
           borderWidth: 2,
           borderRadius: 8,
-          borderColor: colors.border,
+          borderColor: colors.glydeDarkGrey,
         },
         pinCodeTextStyle: {
           fontSize: 18,
@@ -39,10 +39,10 @@ export const OtpInput: React.FC<OtpInputProps> = ({
           textAlign: 'center',
         },
         focusStickStyle: {
-          backgroundColor: colors.primary,
+          backgroundColor: colors.glydeBlue,
         },
         focusedPinCodeContainerStyle: {
-          borderColor: colors.primary,
+          borderColor: colors.glydeBlue,
         },
       }}
     />
