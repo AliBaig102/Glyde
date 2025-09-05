@@ -11,11 +11,11 @@ export const GoogleButton = () => {
       variant="outline"
       title="Continue with Google"
       onPress={handleGoogleLogin}
-      className="border-black justify-center"
+      className="!border-black dark:!border-white justify-center"
       icon={
         <Image
           source={require('@/assets/icons/google-icon.png')}
-          className="w-10 h-10 absolute left-8"
+          className="absolute left-8 w-10 h-10"
           resizeMode="contain"
         />
       }

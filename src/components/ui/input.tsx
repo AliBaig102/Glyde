@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, View, TouchableOpacity } from 'react-native';
 import { Eye, EyeOff } from 'lucide-react-native';
+import { useTheme } from '@/hooks/useTheme';
 
 interface InputProps {
   placeholder?: string;
@@ -25,6 +26,7 @@ export const Input = ({
 }: InputProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const { colors } = useTheme();
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -32,7 +34,7 @@ export const Input = ({
 
   return (
     <View
-      className={`flex-row items-center bg-glyde-grey rounded-xl my-2 px-4 py-1 ${
+      className={`flex-row items-center bg-glyde-light-grey dark:bg-glyde-light-grey-dark rounded-xl my-2 px-4 py-1 ${
         isFocused ? 'border-2 border-glyde-blue' : 'border-2 border-transparent'
       } ${className}`}
     >
@@ -45,15 +47,15 @@ export const Input = ({
         keyboardType={keyboardType}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        className="flex-1 text-base text-black"
-        placeholderTextColor="#9CA3AF"
+        className="flex-1 text-base text-black dark:text-white"
+        placeholderTextColor={colors.glydeDarkGrey}
       />
       {showPasswordToggle && (
         <TouchableOpacity onPress={togglePasswordVisibility} className="ml-3">
           {isPasswordVisible ? (
-            <EyeOff size={20} color="#9CA3AF" />
+            <EyeOff size={20} color={colors.glydeDarkGrey} />
           ) : (
-            <Eye size={20} color="#9CA3AF" />
+            <Eye size={20} color={colors.glydeDarkGrey} />
           )}
         </TouchableOpacity>
       )}

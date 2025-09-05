@@ -11,6 +11,7 @@ import {
   StatusBar,
   SafeAreaView,
 } from 'react-native';
+import { useTheme } from '@/hooks/useTheme';
 
 interface CountrySelectorModalProps {
   modalVisible: boolean;
@@ -24,6 +25,7 @@ export const CountrySelectorModal: React.FC<CountrySelectorModalProps> = ({
   onCountrySelect,
 }) => {
   const [searchText, setSearchText] = useState('');
+  const { colors } = useTheme();
 
   const filteredCountries = countries.filter(
     country =>
@@ -48,18 +50,18 @@ export const CountrySelectorModal: React.FC<CountrySelectorModalProps> = ({
       transparent={false}
       onRequestClose={() => setModalVisible(false)}
     >
-      <SafeAreaView className="flex-1 bg-white">
-        <StatusBar barStyle="dark-content" backgroundColor="white" />
+      <SafeAreaView className="flex-1 bg-glyde-white dark:bg-glyde-white-dark">
+        <StatusBar barStyle="dark-content" backgroundColor={colors.glydeWhite} />
 
         {/* Modal Header */}
-        <View className="flex-row items-center justify-between px-6 py-5 border-b border-glyde-grey bg-very-light-grey">
+        <View className="flex-row justify-between items-center px-6 py-5 border-b border-glyde-grey bg-very-light-grey">
           <TouchableOpacity
             onPress={() => setModalVisible(false)}
-            className="p-2 rounded-full bg-white shadow-sm"
+            className="p-2 rounded-full"
           >
-            <XIcon size={20} color={'#303030'} />
+            <XIcon size={20} color={colors.glydeBlue} />
           </TouchableOpacity>
-          <Text className="text-xl font-bold text-glyde-dark-blue">
+          <Text className="text-xl font-bold text-glyde-blue">
             Select Country
           </Text>
           <View style={{ width: 36 }} />
@@ -67,18 +69,18 @@ export const CountrySelectorModal: React.FC<CountrySelectorModalProps> = ({
 
         {/* Search Input */}
         <View className="px-6 py-4 bg-very-light-grey">
-          <View className="flex-row items-center bg-white border border-glyde-grey rounded-2xl px-4 h-12">
-            <SearchIcon size={18} color={'#A0A0A0'} />
+          <View className="flex-row items-center px-4 h-12 bg-transparent rounded-2xl border border-glyde-grey-dark">
+            <SearchIcon size={18} color={colors.glydeDarkGrey} />
             <TextInput
-              className="flex-1 ml-3 text-base text-glyde-dark-blue"
+              className="flex-1 ml-3 text-base text-black dark:text-white"
               placeholder="Search countries..."
               value={searchText}
               onChangeText={setSearchText}
-              placeholderTextColor="#A0A0A0"
+              placeholderTextColor={colors.glydeDarkGrey}
             />
             {searchText.length > 0 && (
               <TouchableOpacity onPress={clearSearch} className="ml-2">
-                <XIcon size={16} color={'#A0A0A0'} />
+                <XIcon size={16} color={colors.glydeDarkGrey} />
               </TouchableOpacity>
             )}
           </View>
@@ -88,26 +90,23 @@ export const CountrySelectorModal: React.FC<CountrySelectorModalProps> = ({
         <FlatList
           data={filteredCountries}
           keyExtractor={item => item.code}
-          className="flex-1 bg-white"
+          className="flex-1 bg-very-light-grey"
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <TouchableOpacity
               className="flex-row items-center px-6 py-4 border-b border-glyde-grey/50 active:bg-glyde-light-blue/10"
               onPress={() => handleCountrySelect(item)}
             >
-              <Text className="text-3xl mr-4">{item.flag}</Text>
+              <Text className="mr-4 text-3xl">{item.flag}</Text>
               <View className="flex-1">
-                <Text className="text-base font-medium text-glyde-dark-blue">
+                <Text className="text-base font-medium text-black dark:text-white">
                   {item.name}
                 </Text>
               </View>
-              <Text className="text-base text-glyde-blue font-semibold">
+              <Text className="text-base font-semibold text-black dark:text-white">
                 {item.dialCode}
               </Text>
             </TouchableOpacity>
-          )}
-          ItemSeparatorComponent={() => (
-            <View className="h-px bg-glyde-grey/30 mx-6" />
           )}
         />
       </SafeAreaView>
