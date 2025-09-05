@@ -9,12 +9,9 @@ interface OtpInputProps {
   className?: string;
 }
 
-export const OtpInput: React.FC<OtpInputProps> = ({
-  setCode,
-  length = 6,
-}) => {
+export const OtpInput: React.FC<OtpInputProps> = ({ setCode, length = 6 }) => {
   const { colors } = useTheme();
-  
+  1;
   return (
     <RNOtpInput
       numberOfDigits={length}
@@ -37,6 +34,7 @@ export const OtpInput: React.FC<OtpInputProps> = ({
           fontSize: 18,
           fontWeight: '600',
           textAlign: 'center',
+          color: colors.glydeBlack,
         },
         focusStickStyle: {
           backgroundColor: colors.glydeBlue,
@@ -47,4 +45,4 @@ export const OtpInput: React.FC<OtpInputProps> = ({
       }}
     />
   );
-}
+};

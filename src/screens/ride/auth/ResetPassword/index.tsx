@@ -51,7 +51,7 @@ export const ResetPasswordScreen = () => {
         [
           {
             text: 'OK',
-            onPress: () => navigation.navigate('SignIn' as never)
+            onPress: () => navigation.navigate('SigninScreen' as never)
           }
         ]
       );
@@ -63,7 +63,7 @@ export const ResetPasswordScreen = () => {
   };
 
   const handleBackToSignIn = () => {
-    navigation.navigate('SignIn' as never);
+    navigation.navigate('SigninScreen' as never);
   };
 
   return (
