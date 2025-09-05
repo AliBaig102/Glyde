@@ -7,6 +7,11 @@ import { RideOnBoardingScreen } from '@/screens/ride/onBoardingScreen';
 import { SignupScreen } from '@/screens/ride/auth/signup';
 import { SigninScreen } from '@/screens/ride/auth/signin';
 import { PhoneScreen } from '@/screens/ride/auth/phone';
+import { ForgotPasswordScreen } from '@/screens/ride/auth/forgotpassword';
+import { EmailVerificationScreen } from '@/screens/ride/auth/EmailVerification';
+import { OtpVerificationScreen } from '@/screens/ride/auth/OtpVerification';
+import { ResetPasswordScreen } from '@/screens/ride/auth/ResetPassword';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +44,10 @@ const RideAppRoutes = () => {
       <RideStack.Screen name="SigninScreen" component={SigninScreen} />
       <RideStack.Screen name="SignupScreen" component={SignupScreen} />
       <RideStack.Screen name="PhoneScreen" component={PhoneScreen} />
+      <RideStack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
+      <RideStack.Screen name="EmailVerificationScreen" component={EmailVerificationScreen} />
+      <RideStack.Screen name="OtpVerificationScreen" component={OtpVerificationScreen} />
+      <RideStack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
     </RideStack.Navigator>
   );
 };
