@@ -6,12 +6,20 @@ interface AuthState {
   refreshToken: string | null;
   user: IUser | null;
   isAuthenticated: boolean;
+  emailVerification: {
+    email: string;
+    code: string;
+  };
 }
 const initialState: AuthState = {
   accessToken: null,
   refreshToken: null,
   user: null,
   isAuthenticated: false,
+  emailVerification: {
+    email: '',
+    code: '',
+  },
 };
 
 const authSlice = createSlice({
@@ -46,9 +54,18 @@ const authSlice = createSlice({
       state.refreshToken = null;
       state.user = null;
     },
+    setEmailVerification: (
+      state,
+      { payload }: PayloadAction<{ email: string; code: string }>,
+    ) => {
+      state.emailVerification = {
+        email: payload.email,
+        code: payload.code,
+      };
+    },
   },
 });
 
-export const { login, setAccessToken, setRefreshToken, setUser, logout } =
+export const { login, setAccessToken, setRefreshToken, setUser, logout,setEmailVerification } =
   authSlice.actions;
 export default authSlice.reducer;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -22,22 +22,23 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signupValidation, SignupValidationType } from '@/utils/validation';
 import { useApi } from '@/hooks';
+import { ENDPOINT_URLS } from '@/constants/endpoint';
+import { handleApiError } from '@/utils';
+import { useAppDispatch } from '@/redux';
+import { setEmailVerification } from '@/redux/slices/authSlice';
 
 export const SignupScreen = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
-  const {response,error}=useApi('/health')
-  useEffect(()=>{
-    console.log(response);
-    console.log(error);
-  },[response,error])
-  
-  
+  const { post } = useApi(ENDPOINT_URLS.SIGNUP, { immediate: false });
+  const dispatch = useAppDispatch();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
     setValue,
+    setError,
   } = useForm<SignupValidationType>({
     resolver: zodResolver(signupValidation),
     defaultValues: {
@@ -58,14 +59,30 @@ export const SignupScreen = () => {
   });
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleSignUp = handleSubmit((data) => {
-    console.log('Sign Up pressed', {
-      ...data,
-      phone: selectedCountry.dialCode + phoneNumber,
-    });
-    // Update the phone field with the complete phone number including country code
-    setValue('phone', selectedCountry.dialCode + phoneNumber);
-    // navigation.navigate('EmailVerificationScreen' as never);
+  const handleSignUp = handleSubmit(async data => {
+    try {
+      console.log('Sign Up pressed', {
+        ...data,
+        phone: selectedCountry.dialCode + phoneNumber,
+      });
+      setValue('phone', selectedCountry.dialCode + phoneNumber);
+      const { response } = await post<{ email: string }>(
+        ENDPOINT_URLS.SIGNUP,
+        data,
+      );
+      if (response.success) {
+        dispatch(
+          setEmailVerification({
+            email: data.email,
+            code: '',
+          }),
+        );
+        navigation.navigate('EmailVerificationScreen' as never);
+      }
+    } catch (err: any) {
+      console.log(err);
+      handleApiError(err, setError);
+    }
   });
 
   const handleSignInPress = () => {
@@ -77,11 +94,13 @@ export const SignupScreen = () => {
     // Update the phone field whenever country changes
     setValue('phone', country.dialCode + phoneNumber);
   };
-  
+
   // Update phone value when phoneNumber changes
   const handlePhoneChange = (value: string) => {
     setPhoneNumber(value);
-    setValue('phone', selectedCountry.dialCode + value);
+    setValue('phone', selectedCountry.dialCode + value, {
+      shouldValidate: true,
+    });
   };
 
   return (

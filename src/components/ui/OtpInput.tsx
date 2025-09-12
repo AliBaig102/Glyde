@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { OtpInput as RNOtpInput } from 'react-native-otp-entry';
 import { useTheme } from '@/hooks/useTheme';
 
@@ -9,11 +9,26 @@ interface OtpInputProps {
   className?: string;
 }
 
-export const OtpInput: React.FC<OtpInputProps> = ({ setCode, length = 6 }) => {
+export interface OtpInputRef {
+  clear: () => void;
+}
+
+export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>(({ setCode, length = 6 }, ref) => {
   const { colors } = useTheme();
-  1;
+  const otpRef = useRef<any>(null);
+  
+  useImperativeHandle(ref, () => ({
+    clear: () => {
+      setCode('');
+      if (otpRef.current) {
+        otpRef.current.clear();
+      }
+    }
+  }));
+  
   return (
     <RNOtpInput
+      ref={otpRef}
       numberOfDigits={length}
       onTextChange={setCode}
       focusColor={colors.glydeBlue}
@@ -45,4 +60,4 @@ export const OtpInput: React.FC<OtpInputProps> = ({ setCode, length = 6 }) => {
       }}
     />
   );
-};
+});
