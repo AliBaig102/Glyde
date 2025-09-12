@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput, View, TouchableOpacity } from 'react-native';
+import { TextInput, View, TouchableOpacity, Text } from 'react-native';
 import { Eye, EyeOff } from 'lucide-react-native';
 import { useTheme } from '@/hooks/useTheme';
 
@@ -12,6 +12,7 @@ interface InputProps {
   className?: string;
   icon?: React.ReactNode;
   showPasswordToggle?: boolean;
+  error?: string;
 }
 
 export const Input = ({
@@ -23,6 +24,7 @@ export const Input = ({
   className,
   icon,
   showPasswordToggle = false,
+  error,
 }: InputProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -33,11 +35,12 @@ export const Input = ({
   };
 
   return (
-    <View
-      className={`flex-row items-center bg-glyde-light-grey dark:bg-glyde-light-grey-dark rounded-xl my-2 px-4 py-1 ${
-        isFocused ? 'border-2 border-glyde-blue' : 'border-2 border-transparent'
-      } ${className}`}
-    >
+    <>
+      <View
+        className={`flex-row items-center bg-glyde-light-grey dark:bg-glyde-light-grey-dark rounded-xl my-2 px-4 py-1 ${
+          isFocused ? 'border-2 border-glyde-blue' : error ? 'border-2 border-red-500' : 'border-2 border-transparent'
+        } ${className}`}
+      >
       {icon && <View className="mr-3">{icon}</View>}
       <TextInput
         placeholder={placeholder}
@@ -59,6 +62,10 @@ export const Input = ({
           )}
         </TouchableOpacity>
       )}
-    </View>
+      </View>
+      {error && (
+        <Text className="mb-1 ml-1 text-sm text-red-500">{error}</Text>
+      )}
+    </>
   );
 };

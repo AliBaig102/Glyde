@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -18,16 +18,38 @@ import {
 import { Country } from '@/constants/countries';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@/hooks/useTheme';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signupValidation, SignupValidationType } from '@/utils/validation';
+import { useApi } from '@/hooks';
 
 export const SignupScreen = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
+  const {response,error}=useApi('/health')
+  useEffect(()=>{
+    console.log(response);
+    console.log(error);
+  },[response,error])
+  
+  
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<SignupValidationType>({
+    resolver: zodResolver(signupValidation),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      password: '',
+    },
+  });
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
   const [selectedCountry, setSelectedCountry] = useState<Country>({
     name: 'United States',
     code: 'US',
@@ -36,16 +58,15 @@ export const SignupScreen = () => {
   });
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleSignUp = () => {
+  const handleSignUp = handleSubmit((data) => {
     console.log('Sign Up pressed', {
-      firstName,
-      lastName,
-      email,
-      phoneNumber: selectedCountry.dialCode + phoneNumber,
-      password,
+      ...data,
+      phone: selectedCountry.dialCode + phoneNumber,
     });
-    navigation.navigate('EmailVerificationScreen' as never);
-  };
+    // Update the phone field with the complete phone number including country code
+    setValue('phone', selectedCountry.dialCode + phoneNumber);
+    // navigation.navigate('EmailVerificationScreen' as never);
+  });
 
   const handleSignInPress = () => {
     navigation.navigate('SigninScreen' as never);
@@ -53,6 +74,14 @@ export const SignupScreen = () => {
 
   const handleCountrySelect = (country: Country) => {
     setSelectedCountry(country);
+    // Update the phone field whenever country changes
+    setValue('phone', country.dialCode + phoneNumber);
+  };
+  
+  // Update phone value when phoneNumber changes
+  const handlePhoneChange = (value: string) => {
+    setPhoneNumber(value);
+    setValue('phone', selectedCountry.dialCode + value);
   };
 
   return (
@@ -89,30 +118,51 @@ export const SignupScreen = () => {
               {/* First Name and Last Name Row */}
               <View className="flex-row gap-2">
                 <View className="flex-1">
-                  <Input
-                    placeholder="First Name"
-                    value={firstName}
-                    onChangeText={setFirstName}
-                    icon={<User size={20} color={colors.glydeDarkGrey} />}
+                  <Controller
+                    control={control}
+                    name="firstName"
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        placeholder="First Name"
+                        value={value}
+                        onChangeText={onChange}
+                        icon={<User size={20} color={colors.glydeDarkGrey} />}
+                        error={errors.firstName?.message}
+                      />
+                    )}
                   />
                 </View>
                 <View className="flex-1">
-                  <Input
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChangeText={setLastName}
-                    icon={<User size={20} color={colors.glydeDarkGrey} />}
+                  <Controller
+                    control={control}
+                    name="lastName"
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        placeholder="Last Name"
+                        value={value}
+                        onChangeText={onChange}
+                        icon={<User size={20} color={colors.glydeDarkGrey} />}
+                        error={errors.lastName?.message}
+                      />
+                    )}
                   />
                 </View>
               </View>
 
               {/* Email */}
-              <Input
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                icon={<Mail size={20} color={colors.glydeDarkGrey} />}
+              <Controller
+                control={control}
+                name="email"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    placeholder="Email"
+                    value={value}
+                    onChangeText={onChange}
+                    keyboardType="email-address"
+                    icon={<Mail size={20} color={colors.glydeDarkGrey} />}
+                    error={errors.email?.message}
+                  />
+                )}
               />
 
               {/* Phone Number with Country Selector */}
@@ -135,21 +185,33 @@ export const SignupScreen = () => {
                 <TextInput
                   placeholder="Mobile Number"
                   value={phoneNumber}
-                  onChangeText={setPhoneNumber}
+                  onChangeText={handlePhoneChange}
                   keyboardType="phone-pad"
                   className="flex-1 ml-3 text-base text-black dark:text-white"
                   placeholderTextColor={colors.glydeDarkGrey}
                 />
               </View>
+              {errors.phone && (
+                <Text className="mt-1 text-sm text-red-500">
+                  {errors.phone.message}
+                </Text>
+              )}
 
               {/* Password */}
-              <Input
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry={true}
-                showPasswordToggle={true}
-                icon={<Lock size={20} color={colors.glydeDarkGrey} />}
+              <Controller
+                control={control}
+                name="password"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    placeholder="Password"
+                    value={value}
+                    onChangeText={onChange}
+                    secureTextEntry={true}
+                    showPasswordToggle={true}
+                    icon={<Lock size={20} color={colors.glydeDarkGrey} />}
+                    error={errors.password?.message}
+                  />
+                )}
               />
             </View>
           </View>

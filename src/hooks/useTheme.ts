@@ -18,6 +18,6 @@ export const useTheme = (): {
     isDark,
     colors: isDark ? colors.dark : colors.light,
     toggleTheme: handleToggleTheme,
-    colorScheme,
+    colorScheme: colorScheme as 'light' | 'dark',
   };
 };

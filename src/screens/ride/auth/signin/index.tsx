@@ -4,11 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Mail, Lock } from 'lucide-react-native';
 import { Button, Input, GoogleButton, BottomText } from '@/components';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '@/hooks/useTheme';
 
 export const SigninScreen = () => {
   const navigation = useNavigation();
-  const { colors } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,7 +23,7 @@ export const SigninScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-glyde-white dark:bg-glyde-white-dark">
+    <SafeAreaView className="flex-1 bg-white">
       <ScrollView 
         className="flex-1" 
         contentContainerClassName="flex-grow"
@@ -36,11 +34,11 @@ export const SigninScreen = () => {
 
           {/* Header */}
           <View className="items-center my-32">
-            <Text className="mb-2 text-4xl font-bold text-glyde-black dark:text-glyde-white">
+            <Text className="mb-2 text-4xl font-bold text-black">
               Welcome Back
             </Text>
             <View className="flex-row items-center">
-              <Text className="text-base text-glyde-grey-dark dark:text-glyde-grey">
+              <Text className="text-base text-gray-600">
                 Don't have an account?{' '}
               </Text>
               <Text onPress={handleSignUp} className="text-base font-medium underline text-glyde-blue">
@@ -57,7 +55,7 @@ export const SigninScreen = () => {
               onChangeText={setEmail}
               keyboardType="email-address"
               icon={
-                <Mail size={20} color={colors.glydeDarkGrey} />
+                <Mail size={20} color="#9CA3AF" />
               }
             />
             
@@ -68,7 +66,7 @@ export const SigninScreen = () => {
               secureTextEntry={true}
               showPasswordToggle={true}
               icon={
-                <Lock size={20} color={colors.glydeDarkGrey} /> 
+                <Lock size={20} color="#9CA3AF" />
               }
             />
           </View>
