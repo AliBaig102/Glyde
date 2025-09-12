@@ -45,10 +45,11 @@ const ApiResponseSchema = <T>(dataSchema: z.ZodType<T>) =>
 
 // Create axios instance with baseURL from environment
 const createApiInstance = (): AxiosInstance => {
-  const baseURL = process.env.BACKEND_BASE_URL || 'http://192.168.18.30:4000';
+  // Import environment variables from our env utility
+  const { BACKEND_BASE_URL } = require('@/utils/env').env;
 
   return axios.create({
-    baseURL,
+    baseURL: BACKEND_BASE_URL,
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json',
