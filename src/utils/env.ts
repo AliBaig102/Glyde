@@ -3,7 +3,7 @@ import { API_VERSION, AUTH_TOKEN_KEY, ENABLE_ANALYTICS, ENABLE_PUSH_NOTIFICATION
 // Export environment variables with proper typing
 export const env = {
   // API URLs
-  BACKEND_BASE_URL: BACKEND_BASE_URL || 'http://localhost:4000',
+  BACKEND_BASE_URL: BACKEND_BASE_URL || 'http://192.168.18.30:4000',
   API_VERSION: API_VERSION || 'v1',
   
   // Authentication

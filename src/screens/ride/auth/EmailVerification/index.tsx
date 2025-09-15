@@ -80,10 +80,7 @@ export const EmailVerificationScreen = () => {
             refreshToken: data.refreshToken,
           }),
         );
-      } else {
-        // Handle unsuccessful response
-        console.log('Verification unsuccessful:', response);
-        // Could add user feedback here
+        navigation.navigate('RideHomeScreen' as never);
       }
     } catch (error) {
       console.log('Verification failed:', error);
